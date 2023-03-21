@@ -1,8 +1,12 @@
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+//Packages and react
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+
+//Pages and components
 import LoginPage from "./pages/LoginPage/Login";
 import RegisterPage from "./pages/RegisterPage/Register";
-import { Typography } from "@mui/material";
-import styled from "styled-components";
+import HomePage from "./pages/HomePage/HomePage";
 
 function App() {
   const Main = styled.div`
@@ -13,18 +17,24 @@ function App() {
     box-sizing: border-box;
     height: 97vh;
   `;
-  let isAuth = true;
+
+  const isAuth = Boolean(useSelector((state) => state.user));
+
   return (
     <Main className="App">
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
-            element={<LoginPage />}
+            element={isAuth ? <HomePage /> : <LoginPage />}
           />
           <Route
             path="/register"
-            element={<RegisterPage />}
+            element={isAuth ? <HomePage /> : <RegisterPage />}
+          />
+          <Route
+            path="/"
+            element={isAuth ? <HomePage /> : <LoginPage />}
           />
         </Routes>
       </BrowserRouter>

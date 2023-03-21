@@ -1,8 +1,11 @@
 import TextField from "@mui/material/TextField";
 import { Box, Typography, Button, Divider } from "@mui/material";
+import { useDispatch } from "react-redux";
 
-import { display, width } from "@mui/system";
+import { setUser } from "../../state";
+
 const LoginPage = () => {
+  const dispatch = useDispatch();
   return (
     <Box>
       <Typography
@@ -44,6 +47,9 @@ const LoginPage = () => {
           sx={{ width: "80%", margin: "10px 0 10px 0px" }}
         />
         <Button
+          onClick={() => {
+            dispatch(setUser());
+          }}
           variant="contained"
           sx={{
             width: "50%",
@@ -65,7 +71,7 @@ const LoginPage = () => {
             margin: "10px 0 70px 0",
             textTransform: "lowercase",
           }}
-          href="login">
+          href="register">
           Create new Account
         </Button>
       </Box>
