@@ -1,11 +1,35 @@
 import TextField from "@mui/material/TextField";
 import { Box, Typography, Button, Divider } from "@mui/material";
-import { useDispatch } from "react-redux";
 
 import { setUser } from "../../state";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const login = async () => {
+    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    });
+    const loggedIn = await loggedInResponse.json();
+    if (loggedIn) {
+      dispatch(
+        setUser({
+          user: loggedIn.user,
+          token: loggedIn.token,
+        })
+      );
+    }
+  };
+
   return (
     <Box>
       <Typography
@@ -39,17 +63,22 @@ const LoginPage = () => {
           variant="outlined"
           label="Username"
           sx={{ width: "80%", margin: "70px 0 10px 0px" }}
+          onChange={(e) => {
+            setUsername(e.target.value);
+          }}
         />
         <TextField
           id="outlined-basic"
           variant="outlined"
           label="Password"
           sx={{ width: "80%", margin: "10px 0 10px 0px" }}
+          type="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
+          }}
         />
         <Button
-          onClick={() => {
-            dispatch(setUser());
-          }}
+          onClick={login}
           variant="contained"
           sx={{
             width: "50%",

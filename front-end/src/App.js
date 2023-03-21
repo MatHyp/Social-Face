@@ -18,7 +18,7 @@ function App() {
     height: 97vh;
   `;
 
-  const isAuth = Boolean(useSelector((state) => state.user));
+  const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
     <Main className="App">
