@@ -11,12 +11,16 @@ import { fileURLToPath } from "url";
 import { register } from "./controllers/auth.js";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
+import { verifyToken } from "./middleware/auth.js";
+import { createPost } from "./controllers/posts.js";
+
 // CONFIGURATIONS
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
+// createPost;
 
 const app = express();
 
@@ -36,6 +40,7 @@ const storage = multer.diskStorage({
     cb(null, "public/assets");
   },
   filename: function (req, file, cb) {
+    console.log(file);
     cb(null, file.originalname);
   },
 });
@@ -47,6 +52,9 @@ app.post("/auth/register", upload.single("picture"), register);
 // ROUTES
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+
+app.post("/post", verifyToken, upload.single("picture"), createPost);
+
 const PORT = process.env.PORT || 6001;
 
 mongoose
