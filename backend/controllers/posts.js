@@ -5,10 +5,17 @@ import User from "../models/User.js";
 export const createPost = async (req, res) => {
   try {
     const { id, picturePath, description } = req.body;
+
+    const user = await User.findById(id);
+
     const newPost = new Post({
       id,
-      picturePath,
+      firstName: user.firstName,
+      lastName: user.lastName,
       description,
+      picturePath,
+      likes: {},
+      comments: [],
     });
 
     const post = await newPost.save();
@@ -27,4 +34,3 @@ export const getFeedPosts = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
-
