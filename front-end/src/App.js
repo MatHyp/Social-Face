@@ -15,7 +15,6 @@ function App() {
     padding: 0;
     background-color: #edf0f5;
     box-sizing: border-box;
-    height: 97vh;
   `;
 
   const isAuth = Boolean(useSelector((state) => state.token));

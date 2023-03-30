@@ -41,7 +41,7 @@ const MyPostWidget = () => {
     formData.append("picture", acceptedFiles[0]);
     formData.append("picturePath", acceptedFiles[0].path);
     formData.append("description", "test");
-    // console.log(formData);
+
     const savedUserResponse = await fetch("http://localhost:3001/post", {
       method: "POST",
       // body:

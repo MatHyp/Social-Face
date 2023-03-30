@@ -6,6 +6,7 @@ import MyPostWidget from "./widgets/MyPostWidget";
 import { useDropzone } from "react-dropzone";
 
 import Navbar from "../StaticWidgets/Navbar";
+import PostWidget from "./widgets/PostWidget";
 const HomePage = () => {
   const userToken = useSelector((state) => state.token);
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone();
@@ -22,6 +23,9 @@ const HomePage = () => {
     <Box>
       <Navbar />
       <MyPostWidget />
+      <PostWidget />
+      <PostWidget />
+      <PostWidget />
     </Box>
   );
 };
