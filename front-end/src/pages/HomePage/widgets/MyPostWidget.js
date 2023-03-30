@@ -34,20 +34,23 @@ const MyPostWidget = () => {
     </div>
   ));
 
+  const user = useSelector((state) => state.user);
+
   const sendPost = async () => {
     // this allows us to send form info with image
     let formData = new FormData();
 
+    formData.append("id", user._id);
     formData.append("picture", acceptedFiles[0]);
     formData.append("picturePath", acceptedFiles[0].path);
     formData.append("description", "test");
 
     const savedUserResponse = await fetch("http://localhost:3001/post", {
       method: "POST",
-      // body:
-      // JSON.stringify({
-      //   picture: acceptedFiles[0],
+      // body: JSON.stringify({
       //   id: "641368ea80c8056569c825ce",
+      //   description: "Test",
+      //   picture: acceptedFiles[0],
       //   picturePath: acceptedFiles[0].path,
       // }),
       body: formData,
@@ -62,7 +65,7 @@ const MyPostWidget = () => {
       <Box
         sx={{
           margin: "30px auto 0 auto",
-          width: " 600px",
+          width: "600px",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",

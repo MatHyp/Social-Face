@@ -9,16 +9,16 @@ import Navbar from "../StaticWidgets/Navbar";
 import PostWidget from "./widgets/PostWidget";
 const HomePage = () => {
   const userToken = useSelector((state) => state.token);
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone();
 
-  const file = acceptedFiles.map((file) => (
-    <div>
-      {/* {console.log(file)} */}
-      <h1>
-        {file.path} - {file.size}
-      </h1>
-    </div>
-  ));
+  const getPosts = async () => {
+    const savedUserResponse = await fetch("http://localhost:3001/post", {
+      method: "GET",
+    });
+    const savedUser = await savedUserResponse.json();
+
+    console.log(savedUser);
+  };
+  getPosts();
   return (
     <Box>
       <Navbar />
