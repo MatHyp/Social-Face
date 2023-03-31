@@ -47,12 +47,7 @@ const MyPostWidget = () => {
 
     const savedUserResponse = await fetch("http://localhost:3001/post", {
       method: "POST",
-      // body: JSON.stringify({
-      //   id: "641368ea80c8056569c825ce",
-      //   description: "Test",
-      //   picture: acceptedFiles[0],
-      //   picturePath: acceptedFiles[0].path,
-      // }),
+
       body: formData,
     });
     const savedUser = await savedUserResponse.json();

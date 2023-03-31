@@ -8,9 +8,16 @@ import comment from "../../../img/comment.png";
 import styled from "styled-components";
 import { fontSize } from "@mui/system";
 
-const PostWidget = () => {
+const PostWidget = ({
+  postId,
+  firstName,
+  lastName,
+  picturePath,
+  description,
+  createdAt,
+}) => {
   const userToken = useSelector((state) => state.token);
-
+  console.log(postId);
   return (
     <Box
       sx={{
@@ -24,7 +31,6 @@ const PostWidget = () => {
       <Grid
         container
         direction="row"
-        // justifyContent="space-around"
         alignItems="center"
         margin="20px auto 20px 20px">
         <Avatar
@@ -33,15 +39,17 @@ const PostWidget = () => {
           sx={{ width: 50, height: 50 }}
         />
         <Box>
-          <p style={{ marginLeft: "14px" }}>Jan Kowalski</p>
+          <p style={{ marginLeft: "14px" }}>
+            {firstName} {lastName}
+          </p>
           <p style={{ marginLeft: "14px", color: "grey", fontSize: "12px" }}>
-            2 july 2023
+            {createdAt}
           </p>
         </Box>
       </Grid>
       <p style={{ marginLeft: "20px" }}>Super jest dzisiaj dzien</p>
       <img
-        src={logo2}
+        src={`http://localhost:3001/static/${picturePath}`}
         alt=""
         style={{ maxHeight: "600px", width: "auto", objectFit: "contain" }}
       />
