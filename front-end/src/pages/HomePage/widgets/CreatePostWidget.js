@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   Avatar,
@@ -35,6 +35,7 @@ const MyPostWidget = () => {
   ));
 
   const user = useSelector((state) => state.user);
+  const [description, setDescription] = useState("");
 
   const sendPost = async () => {
     // this allows us to send form info with image
@@ -43,7 +44,7 @@ const MyPostWidget = () => {
     formData.append("id", user._id);
     formData.append("picture", acceptedFiles[0]);
     formData.append("picturePath", acceptedFiles[0].path);
-    formData.append("description", "test");
+    formData.append("description", description);
 
     const savedUserResponse = await fetch("http://localhost:3001/post", {
       method: "POST",
@@ -78,11 +79,25 @@ const MyPostWidget = () => {
             sx={{ width: 50, height: 50 }}
           />
 
-          <PostTextField
+          {/* <PostTextField
             id="outlined-basic"
             label="What's on your mind?"
             variant="outlined"
             size="small"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setUsername(e.target.value);
+            }}
+          /> */}
+          <TextField
+            id="outlined-basic"
+            label="What's on your mind?"
+            variant="outlined"
+            size="small"
+            sx={{ width: "80%" }}
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
           />
         </Grid>
         <Divider

@@ -21,21 +21,31 @@ const PostsWidget = () => {
 
   return (
     <>
-      {posts.map(
-        ({ _id, firstName, lastName, picturePath, description, createdAt }) => {
-          return (
-            <PostWidget
-              key={_id}
-              postId={_id}
-              firstName={firstName}
-              lastName={lastName}
-              picturePath={picturePath}
-              description={description}
-              createdAt={createdAt}
-            />
-          );
-        }
-      )}
+      {posts
+        .slice(0)
+        .reverse()
+        .map(
+          ({
+            _id,
+            firstName,
+            lastName,
+            picturePath,
+            description,
+            createdAt,
+          }) => {
+            return (
+              <PostWidget
+                key={_id}
+                postId={_id}
+                firstName={firstName}
+                lastName={lastName}
+                picturePath={picturePath}
+                description={description}
+                createdAt={createdAt}
+              />
+            );
+          }
+        )}
     </>
   );
 };

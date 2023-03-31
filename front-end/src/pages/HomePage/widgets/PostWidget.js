@@ -7,6 +7,8 @@ import like from "../../../img/like.png";
 import comment from "../../../img/comment.png";
 import styled from "styled-components";
 import { fontSize } from "@mui/system";
+import { IconButton, Typography } from "@mui/material";
+// import DeleteIcon from "@mui/icons-material/Delete";
 
 const PostWidget = ({
   postId,
@@ -47,7 +49,7 @@ const PostWidget = ({
           </p>
         </Box>
       </Grid>
-      <p style={{ marginLeft: "20px" }}>Super jest dzisiaj dzien</p>
+      <p style={{ marginLeft: "20px" }}>{description}</p>
       <img
         src={`http://localhost:3001/static/${picturePath}`}
         alt=""
@@ -55,36 +57,38 @@ const PostWidget = ({
       />
       <Grid
         container
-        direction="row"
-        justifyContent="space-around"
-        alignItems="center"
-        margin="20px auto 20px 0px">
-        <Grid
-          container
-          direction="row"
-          width="20%"
-          alignItems="center"
-          justifyContent="space-around">
+        direction="row">
+        <IconButton
+          sx={{
+            borderRadius: "0px",
+            width: "50%",
+            color: "black",
+
+            fontSize: "16px",
+            ":hover": { backgroundColor: "#BAC0C6" },
+          }}>
           <img
             src={like}
             alt="like"
             style={{ width: "30px" }}
           />
-          <p>Like this!</p>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          width="20%"
-          alignItems="center"
-          justifyContent="space-around">
+          <p style={{ marginLeft: "20px" }}>Like this!</p>
+        </IconButton>
+        <IconButton
+          sx={{
+            borderRadius: "0px",
+            width: "50%",
+            color: "black",
+            fontSize: "16px",
+            ":hover": { backgroundColor: "#BAC0C6" },
+          }}>
           <img
             src={comment}
             alt="comment"
             style={{ width: "30px" }}
           />
-          <p>Comment</p>
-        </Grid>
+          <p style={{ marginLeft: "20px" }}>Comment</p>
+        </IconButton>
       </Grid>
     </Box>
   );
