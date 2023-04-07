@@ -34,3 +34,29 @@ export const getFeedPosts = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const likePost = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req.body;
+
+    // console.log(id);
+
+    const post = await Post.findById(id);
+
+    const isLiked = post.likes.get(id);
+    console.log(isLiked);
+
+    if (isLiked) {
+      post.likes.delete(id);
+    } else {
+      post.likes.set(id, true);
+    }
+
+    const updatedPost = await Post.findByIdAndUpdate(id, { likes: post.likes });
+
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};

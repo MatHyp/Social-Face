@@ -14,6 +14,7 @@ import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js";
 import { createPost } from "./controllers/posts.js";
 import { getFeedPosts } from "./controllers/posts.js";
+import { likePost } from "./controllers/posts.js";
 
 // CONFIGURATIONS
 
@@ -32,8 +33,7 @@ app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-// app.use("/assets", express.static(path.join(__dirname, "public/assets")));
-app.use("/static", express.static("public/assets"));
+app.use("/static", express.static(path.join(__dirname, "public/assets")));
 // FILE STORAGE
 
 const storage = multer.diskStorage({
@@ -56,6 +56,8 @@ app.use("/users", userRoutes);
 app.get("/post", getFeedPosts);
 
 app.post("/post", upload.single("picture"), createPost);
+
+app.patch("/:id/like", likePost);
 
 const PORT = process.env.PORT || 6001;
 
