@@ -8,7 +8,7 @@ import { useDropzone } from "react-dropzone";
 
 import Navbar from "../StaticWidgets/Navbar";
 import CreatePostWidget from "./widgets/CreatePostWidget.js";
-import PostWidget from "./widgets/PostWidget";
+import LeftBar from "./widgets/LeftBar.js";
 import PostsWidget from "./widgets/PostsWidgets";
 
 const HomePage = () => {
@@ -17,8 +17,20 @@ const HomePage = () => {
   return (
     <Box>
       <Navbar />
-      <CreatePostWidget />
-      <PostsWidget />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          width: "84%",
+          margin: "0 auto",
+        }}>
+        <LeftBar style={{ position: "fixed", backgroundColor: "red" }} />
+        <Box>
+          <CreatePostWidget />
+          <PostsWidget />
+        </Box>
+        <LeftBar />
+      </Box>
     </Box>
   );
 };

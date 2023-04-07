@@ -79,16 +79,6 @@ const MyPostWidget = () => {
             sx={{ width: 50, height: 50 }}
           />
 
-          {/* <PostTextField
-            id="outlined-basic"
-            label="What's on your mind?"
-            variant="outlined"
-            size="small"
-            onChange={(e) => {
-              console.log(e.target.value);
-              setUsername(e.target.value);
-            }}
-          /> */}
           <TextField
             id="outlined-basic"
             label="What's on your mind?"
