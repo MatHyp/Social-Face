@@ -12,7 +12,7 @@ import { register } from "./controllers/auth.js";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js";
-import { createPost } from "./controllers/posts.js";
+import { addComment, createPost } from "./controllers/posts.js";
 import { getFeedPosts } from "./controllers/posts.js";
 import { likePost } from "./controllers/posts.js";
 
@@ -58,6 +58,8 @@ app.get("/post", getFeedPosts);
 app.post("/post", upload.single("picture"), createPost);
 
 app.patch("/:id/like", likePost);
+
+app.patch("/:id/comment", addComment);
 
 const PORT = process.env.PORT || 6001;
 

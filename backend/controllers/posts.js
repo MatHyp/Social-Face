@@ -60,3 +60,29 @@ export const likePost = async (req, res) => {
     res.status(404).json({ message: err.message });
   }
 };
+
+export const addComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { userId, comment } = req.body;
+
+    const user = await User.findById(userId);
+    const post = await Post.findById(id);
+
+    const commentObj = {
+      id: userId,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      picturePath: user.picturePath,
+      comment: comment,
+    };
+
+    console.log(post.comments);
+    post.comments.push(commentObj);
+    await post.save();
+
+    res.status(201).json(post);
+  } catch (err) {
+    res.status(404).json({ message: err.message });
+  }
+};
