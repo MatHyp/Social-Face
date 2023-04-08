@@ -8,9 +8,14 @@ import {
   Paper,
 } from "@mui/material";
 
+import { useSelector } from "react-redux";
+
 import logo from "../../../img/profile-2.png";
 import logo2 from "../../../img/friends.png";
-const MyPostWidget = () => {
+import home from "../../../img/home.png";
+const LeftBar = () => {
+  const user = useSelector((state) => state.user);
+
   return (
     <div>
       <Box
@@ -29,11 +34,13 @@ const MyPostWidget = () => {
           margin="20px auto 0px 20px">
           <Avatar
             overlap="circular"
-            src={logo}
+            src={`http://localhost:3001/static/${user.picturePath}`}
             sx={{ width: 50, height: 50 }}
           />
           <Box>
-            <p style={{ marginLeft: "14px" }}>Jan Kowalski</p>
+            <p style={{ marginLeft: "14px" }}>
+              {user.firstName} {user.lastName}
+            </p>
           </Box>
         </Grid>
         <Grid
@@ -42,12 +49,11 @@ const MyPostWidget = () => {
           alignItems="center"
           margin="20px auto 0px 20px">
           <Avatar
-            overlap="circular"
-            src={logo2}
+            src={home}
             sx={{ width: 50, height: 50 }}
           />
           <Box>
-            <p style={{ marginLeft: "14px" }}>Your friends</p>
+            <p style={{ marginLeft: "14px" }}>Home</p>
           </Box>
         </Grid>
         <Grid
@@ -69,4 +75,4 @@ const MyPostWidget = () => {
   );
 };
 
-export default MyPostWidget;
+export default LeftBar;

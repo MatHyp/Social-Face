@@ -75,7 +75,7 @@ const MyPostWidget = () => {
           margin="20px auto 20px auto">
           <Avatar
             overlap="circular"
-            src={logo}
+            src={`http://localhost:3001/static/${user.picturePath}`}
             sx={{ width: 50, height: 50 }}
           />
 

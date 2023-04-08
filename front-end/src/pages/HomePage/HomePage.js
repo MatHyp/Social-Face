@@ -1,11 +1,9 @@
 import { useSelector } from "react-redux";
-import { Avatar, TextField, Grid, Divider, Button, Box } from "@mui/material";
-
-import styled from "styled-components";
-import { useDropzone } from "react-dropzone";
+import { Box } from "@mui/material";
 
 //Widgets
 
+import SuggestedFriendsBar from "./widgets/SuggestedFriendsBar";
 import Navbar from "../StaticWidgets/Navbar";
 import CreatePostWidget from "./widgets/CreatePostWidget.js";
 import LeftBar from "./widgets/LeftBar.js";
@@ -24,12 +22,12 @@ const HomePage = () => {
           width: "84%",
           margin: "0 auto",
         }}>
-        <LeftBar style={{ position: "fixed", backgroundColor: "red" }} />
+        <LeftBar />
         <Box>
           <CreatePostWidget />
           <PostsWidget />
         </Box>
-        <LeftBar />
+        <SuggestedFriendsBar />
       </Box>
     </Box>
   );

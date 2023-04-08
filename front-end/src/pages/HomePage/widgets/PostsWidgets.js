@@ -12,6 +12,7 @@ const PostsWidget = () => {
 
     const data = await response.json();
     setPosts(data);
+    console.log(data);
   };
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const PostsWidget = () => {
             likes,
             createdAt,
             comments,
+            userPicturePath,
           }) => {
             return (
               <PostWidget
@@ -45,6 +47,7 @@ const PostsWidget = () => {
                 likes={likes}
                 createdAt={createdAt}
                 comments={comments}
+                userPicturePath={userPicturePath}
               />
             );
           }
