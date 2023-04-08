@@ -29,6 +29,7 @@ const HomePage = () => {
         </Box>
         <SuggestedFriendsBar />
       </Box>
+      <Box sx={{ height: "80px" }}></Box>
     </Box>
   );
 };

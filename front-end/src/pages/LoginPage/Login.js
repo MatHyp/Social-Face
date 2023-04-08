@@ -1,6 +1,6 @@
 import { Box, Typography, Button, Divider, TextField } from "@mui/material";
 
-import { setUser } from "../../state";
+import { setPosts, setUser } from "../../state";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 

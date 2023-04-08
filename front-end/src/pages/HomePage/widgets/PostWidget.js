@@ -123,7 +123,7 @@ const PostWidget = ({
         </div>
 
         <p onClick={() => setShowComments(!showComments)}>
-          {comments.length} Comments
+          {allComments.length} Comments
         </p>
       </Grid>
       <Grid
@@ -196,41 +196,46 @@ const PostWidget = ({
           sx={{ width: "88%" }}
         />
       </Grid>
-      {allComments
-        .slice(0)
-        .reverse()
-        .map((comment) => {
-          return (
-            <Grid
-              key={Math.random()}
-              container
-              direction="row"
-              display={showComments ? "" : "none"}
-              // alignItems="center"
-              margin="20px auto 20px 20px">
-              <Avatar
-                overlap="circular"
-                src={comment.picturePath}
-                sx={{ width: 50, height: 50 }}
-              />
-              <Box
-                sx={{
-                  maxWidth: "80%",
-                  padding: "0 10px",
-                  marginLeft: "10px",
-                  backgroundColor: "#BAC0C6",
-                  display: "flex",
-                  flexDirection: "column",
-                  borderRadius: "10px",
-                }}>
-                <p style={{ fontSize: "12px" }}>
-                  {comment.firstName} {comment.lastName}
-                </p>
-                <p style={{ fontSize: "14px" }}>{comment.comment}</p>
-              </Box>
-            </Grid>
-          );
-        })}
+
+      {allComments.lenght == 0 ? (
+        <div>TEST</div>
+      ) : (
+        allComments
+          .slice(0)
+          .reverse()
+          .map((comment) => {
+            return (
+              <Grid
+                key={Math.random()}
+                container
+                direction="row"
+                display={showComments ? "" : "none"}
+                // alignItems="center"
+                margin="20px auto 20px 20px">
+                <Avatar
+                  overlap="circular"
+                  src={comment.picturePath}
+                  sx={{ width: 50, height: 50 }}
+                />
+                <Box
+                  sx={{
+                    maxWidth: "80%",
+                    padding: "0 10px",
+                    marginLeft: "10px",
+                    backgroundColor: "#BAC0C6",
+                    display: "flex",
+                    flexDirection: "column",
+                    borderRadius: "10px",
+                  }}>
+                  <p style={{ fontSize: "12px" }}>
+                    {comment.firstName} {comment.lastName}
+                  </p>
+                  <p style={{ fontSize: "14px" }}>{comment.comment}</p>
+                </Box>
+              </Grid>
+            );
+          })
+      )}
     </Box>
   );
 };
