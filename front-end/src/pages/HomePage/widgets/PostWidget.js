@@ -19,10 +19,12 @@ const PostWidget = ({
   description,
   likes,
   createdAt,
+  comments,
 }) => {
   const userId = useSelector((state) => state.user._id);
   const [isLiked, setIsLiked] = useState(likes[userId]);
   const [numberOfLikes, setNumberOfLikes] = useState(Object.keys(likes).length);
+  const [newComment, setNewComment] = useState("");
 
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/${postId}/like`, {
@@ -42,6 +44,19 @@ const PostWidget = ({
       setIsLiked(true);
     }
   };
+
+  const addComment = async () => {
+    const response = await fetch(`http://localhost:3001/${postId}/comment`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId, comment: newComment }),
+    });
+
+    const updatedPost = await response.json();
+  };
+  console.log(comments);
 
   return (
     <Box
@@ -146,33 +161,43 @@ const PostWidget = ({
           label="Write a comment..."
           variant="outlined"
           size="small"
+          onChange={(e) => {
+            setNewComment(e.target.value);
+          }}
           sx={{ width: "88%" }}
         />
+        <button onClick={addComment}>Send comment</button>
       </Grid>
-      <Grid
-        container
-        direction="row"
-        // alignItems="center"
-        margin="20px auto 20px 20px">
-        <Avatar
-          overlap="circular"
-          src={logo}
-          sx={{ width: 50, height: 50 }}
-        />
-        <Box
-          sx={{
-            maxWidth: "80%",
-            padding: "0 10px",
-            marginLeft: "10px",
-            backgroundColor: "#BAC0C6",
-            display: "flex",
-            flexDirection: "column",
-            borderRadius: "10px",
-          }}>
-          <p style={{ fontSize: "12px" }}>Jan kowalski</p>
-          <p style={{ fontSize: "14px" }}>S WTF</p>
-        </Box>
-      </Grid>
+      {comments.map((comment) => {
+        return (
+          <Grid
+            container
+            direction="row"
+            // alignItems="center"
+            margin="20px auto 20px 20px">
+            <Avatar
+              overlap="circular"
+              src={logo}
+              sx={{ width: 50, height: 50 }}
+            />
+            <Box
+              sx={{
+                maxWidth: "80%",
+                padding: "0 10px",
+                marginLeft: "10px",
+                backgroundColor: "#BAC0C6",
+                display: "flex",
+                flexDirection: "column",
+                borderRadius: "10px",
+              }}>
+              <p style={{ fontSize: "12px" }}>
+                {comment.firstName} {comment.lastName}
+              </p>
+              <p style={{ fontSize: "14px" }}>{comment.comment}</p>
+            </Box>
+          </Grid>
+        );
+      })}
     </Box>
   );
 };

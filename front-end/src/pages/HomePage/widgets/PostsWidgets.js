@@ -32,6 +32,7 @@ const PostsWidget = () => {
             description,
             likes,
             createdAt,
+            comments,
           }) => {
             return (
               <PostWidget
@@ -43,6 +44,7 @@ const PostsWidget = () => {
                 description={description}
                 likes={likes}
                 createdAt={createdAt}
+                comments={comments}
               />
             );
           }
