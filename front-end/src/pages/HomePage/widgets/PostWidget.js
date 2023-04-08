@@ -9,6 +9,7 @@ import comment from "../../../img/comment.png";
 import styled from "styled-components";
 import { fontSize } from "@mui/system";
 import { IconButton, Typography } from "@mui/material";
+import { useState } from "react";
 
 const PostWidget = ({
   postId,
@@ -16,10 +17,32 @@ const PostWidget = ({
   lastName,
   picturePath,
   description,
+  likes,
   createdAt,
 }) => {
-  const userToken = useSelector((state) => state.token);
-  console.log(postId);
+  const userId = useSelector((state) => state.user._id);
+  const [isLiked, setIsLiked] = useState(likes[userId]);
+  const [numberOfLikes, setNumberOfLikes] = useState(Object.keys(likes).length);
+
+  const patchLike = async () => {
+    const response = await fetch(`http://localhost:3001/${postId}/like`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    });
+    const updatedPost = await response.json();
+
+    if (updatedPost.likes[userId]) {
+      setNumberOfLikes(numberOfLikes - 1);
+      setIsLiked(false);
+    } else {
+      setNumberOfLikes(numberOfLikes + 1);
+      setIsLiked(true);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -67,7 +90,7 @@ const PostWidget = ({
             alt="like"
             style={{ width: "22px", height: "22px" }}
           />
-          <p>10</p>
+          <p>{numberOfLikes}</p>
         </div>
         <p>10 Comments</p>
       </Grid>
@@ -75,11 +98,11 @@ const PostWidget = ({
         container
         direction="row">
         <IconButton
+          onClick={patchLike}
           sx={{
             borderRadius: "0px",
             width: "50%",
-            color: "black",
-
+            color: isLiked ? "blue" : "black",
             fontSize: "16px",
             ":hover": { backgroundColor: "#BAC0C6" },
           }}>

@@ -11,7 +11,6 @@ const PostsWidget = () => {
     });
 
     const data = await response.json();
-    console.log(data);
     setPosts(data);
   };
 
@@ -31,6 +30,7 @@ const PostsWidget = () => {
             lastName,
             picturePath,
             description,
+            likes,
             createdAt,
           }) => {
             return (
@@ -41,6 +41,7 @@ const PostsWidget = () => {
                 lastName={lastName}
                 picturePath={picturePath}
                 description={description}
+                likes={likes}
                 createdAt={createdAt}
               />
             );
