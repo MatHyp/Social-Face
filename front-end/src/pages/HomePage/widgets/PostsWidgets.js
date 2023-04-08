@@ -5,8 +5,8 @@ import PostWidget from "./PostWidget";
 import { setPosts } from "../../../state";
 const PostsWidget = () => {
   const dispatch = useDispatch();
+  // const [post, setPost] = useState([]);
   const posts = useSelector((state) => state.posts);
-
   const getPosts = async () => {
     const response = await fetch("http://localhost:3001/post", {
       method: "GET",

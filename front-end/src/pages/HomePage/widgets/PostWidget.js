@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
 import { Avatar, TextField, Grid, Divider, Button, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setPost } from "../../../state";
 
 import logo from "../../../img/profile-2.png";
 import send from "../../../img/send.png";
@@ -9,7 +10,7 @@ import comment from "../../../img/comment.png";
 import styled from "styled-components";
 import { fontSize } from "@mui/system";
 import { IconButton, Typography } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const PostWidget = ({
   postId,
@@ -23,13 +24,15 @@ const PostWidget = ({
   userPicturePath,
 }) => {
   const user = useSelector((state) => state.user);
-  const [isLiked, setIsLiked] = useState(likes[user._id]);
-  const [numberOfLikes, setNumberOfLikes] = useState(Object.keys(likes).length);
+
+  const dispatch = useDispatch();
 
   const [newComment, setNewComment] = useState("");
-  const [allComments, setAllComments] = useState(comments);
   const [showComments, setShowComments] = useState(false);
 
+  const isLiked = Boolean(likes[user._id]);
+  const likeCount = Object.keys(likes).length;
+  console.log(isLiked);
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/${postId}/like`, {
       method: "PATCH",
@@ -39,14 +42,8 @@ const PostWidget = ({
       body: JSON.stringify({ userId: user._id }),
     });
     const updatedPost = await response.json();
-
-    if (updatedPost.likes[user._id]) {
-      setNumberOfLikes(numberOfLikes - 1);
-      setIsLiked(false);
-    } else {
-      setNumberOfLikes(numberOfLikes + 1);
-      setIsLiked(true);
-    }
+    console.log(updatedPost);
+    dispatch(setPost({ post: updatedPost }));
   };
 
   const addComment = async () => {
@@ -58,18 +55,10 @@ const PostWidget = ({
       body: JSON.stringify({ userId: user._id, comment: newComment }),
     });
 
-    const commentObj = {
-      id: user._id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      picturePath: user.userPicturePath,
-      comment: newComment,
-    };
-    // allComments.push(commentObj)
-
-    setAllComments((oldComments) => [...oldComments, commentObj]);
-    setShowComments(true);
     const updatedPost = await response.json();
+
+    dispatch(setPost({ post: updatedPost }));
+    setShowComments(true);
   };
 
   return (
@@ -119,11 +108,11 @@ const PostWidget = ({
             alt="like"
             style={{ width: "22px", height: "22px" }}
           />
-          <p>{numberOfLikes}</p>
+          <p>{likeCount}</p>
         </div>
 
         <p onClick={() => setShowComments(!showComments)}>
-          {allComments.length} Comments
+          {comments.length} Comments
         </p>
       </Grid>
       <Grid
@@ -134,7 +123,6 @@ const PostWidget = ({
           sx={{
             borderRadius: "0px",
             width: "50%",
-            color: isLiked ? "blue" : "black",
             fontSize: "16px",
             ":hover": { backgroundColor: "#BAC0C6" },
           }}>
@@ -143,7 +131,13 @@ const PostWidget = ({
             alt="like"
             style={{ width: "30px" }}
           />
-          <p style={{ marginLeft: "20px" }}>Like this!</p>
+          <p
+            style={{
+              marginLeft: "20px",
+              color: isLiked ? "blue" : "black",
+            }}>
+            Like this!
+          </p>
         </IconButton>
         <IconButton
           onClick={() => setShowComments(!showComments)}
@@ -197,45 +191,41 @@ const PostWidget = ({
         />
       </Grid>
 
-      {allComments.lenght == 0 ? (
-        <div>TEST</div>
-      ) : (
-        allComments
-          .slice(0)
-          .reverse()
-          .map((comment) => {
-            return (
-              <Grid
-                key={Math.random()}
-                container
-                direction="row"
-                display={showComments ? "" : "none"}
-                // alignItems="center"
-                margin="20px auto 20px 20px">
-                <Avatar
-                  overlap="circular"
-                  src={comment.picturePath}
-                  sx={{ width: 50, height: 50 }}
-                />
-                <Box
-                  sx={{
-                    maxWidth: "80%",
-                    padding: "0 10px",
-                    marginLeft: "10px",
-                    backgroundColor: "#BAC0C6",
-                    display: "flex",
-                    flexDirection: "column",
-                    borderRadius: "10px",
-                  }}>
-                  <p style={{ fontSize: "12px" }}>
-                    {comment.firstName} {comment.lastName}
-                  </p>
-                  <p style={{ fontSize: "14px" }}>{comment.comment}</p>
-                </Box>
-              </Grid>
-            );
-          })
-      )}
+      {comments
+        .slice(0)
+        .reverse()
+        .map((comment) => {
+          return (
+            <Grid
+              key={Math.random()}
+              container
+              direction="row"
+              display={showComments ? "" : "none"}
+              // alignItems="center"
+              margin="20px auto 20px 20px">
+              <Avatar
+                overlap="circular"
+                src={comment.picturePath}
+                sx={{ width: 50, height: 50 }}
+              />
+              <Box
+                sx={{
+                  maxWidth: "80%",
+                  padding: "0 10px",
+                  marginLeft: "10px",
+                  backgroundColor: "#BAC0C6",
+                  display: "flex",
+                  flexDirection: "column",
+                  borderRadius: "10px",
+                }}>
+                <p style={{ fontSize: "12px" }}>
+                  {comment.firstName} {comment.lastName}
+                </p>
+                <p style={{ fontSize: "14px" }}>{comment.comment}</p>
+              </Box>
+            </Grid>
+          );
+        })}
     </Box>
   );
 };

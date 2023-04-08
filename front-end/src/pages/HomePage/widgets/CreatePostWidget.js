@@ -23,8 +23,8 @@ const MyPostWidget = () => {
       },
       body: JSON.stringify({
         id: user._id,
-        picture: acceptedFiles[0],
-        picturePath: acceptedFiles[0].path,
+        picture: acceptedFiles.length === 0 ? "" : acceptedFiles[0],
+        picturePath: acceptedFiles.length === 0 ? "" : acceptedFiles[0].path,
         description: description,
       }),
     });
