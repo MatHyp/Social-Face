@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import LoginPage from "./pages/LoginPage/Login";
 import RegisterPage from "./pages/RegisterPage/Register";
 import HomePage from "./pages/HomePage/HomePage";
-
+import ProfilePage from "./pages/UserProfilePage/ProfilePage";
 function App() {
   const Main = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap");
@@ -32,8 +32,8 @@ function App() {
             element={isAuth ? <HomePage /> : <RegisterPage />}
           />
           <Route
-            path="/"
-            element={isAuth ? <HomePage /> : <LoginPage />}
+            path="/profile/:id"
+            element={isAuth ? <ProfilePage /> : <LoginPage />}
           />
         </Routes>
       </BrowserRouter>

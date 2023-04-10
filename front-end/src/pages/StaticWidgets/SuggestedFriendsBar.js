@@ -1,8 +1,9 @@
 import { Avatar, Grid, Box } from "@mui/material";
 
-import logo from "../../../img/profile-2.png";
+import logo from "../../img/profile-2.png";
 
 const SuggestedFriendsBar = () => {
+  
   return (
     <div>
       <Box

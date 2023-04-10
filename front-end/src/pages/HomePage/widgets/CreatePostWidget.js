@@ -16,17 +16,16 @@ const MyPostWidget = () => {
   const [description, setDescription] = useState("");
 
   const sendPost = async () => {
+    const formData = new FormData();
+
+    formData.append("id", user._id);
+    formData.append("picture", acceptedFiles.length === 0 ? "" : acceptedFiles[0]);
+    formData.append("picturePath", acceptedFiles.length === 0 ? "" : acceptedFiles[0].path);
+    formData.append("description", description);
+
     const response = await fetch("http://localhost:3001/post", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: user._id,
-        picture: acceptedFiles.length === 0 ? "" : acceptedFiles[0],
-        picturePath: acceptedFiles.length === 0 ? "" : acceptedFiles[0].path,
-        description: description,
-      }),
+      body: formData,
     });
 
     const posts = await response.json();
