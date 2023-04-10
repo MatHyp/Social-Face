@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { Box, CardMedia, useMediaQuery, Avatar } from "@mui/material";
 
-import bgc from "../../../img/view.png";
+import bgc from "../../../img/szop.png";
 import logo from "../../../img/szop.png";
 
 const ProfileCartWidget = () => {

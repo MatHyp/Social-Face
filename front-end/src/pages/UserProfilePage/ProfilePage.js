@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Box } from "@mui/material";
+import { Box, useMediaQuery } from "@mui/material";
 
 import LeftBar from "../StaticWidgets/LeftBar.js";
 import Navbar from "../StaticWidgets/Navbar.js";
@@ -10,6 +10,7 @@ import PostsWidget from "../HomePage/widgets/PostsWidgets.js";
 
 const ProfilePage = () => {
   const user = useSelector((state) => state.user);
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   return (
     <Box>
@@ -17,17 +18,20 @@ const ProfilePage = () => {
       <Box
         sx={{
           display: "flex",
+          flexDirection: isNonMobileScreens ? "row" : "column",
           justifyContent: "space-between",
-          width: "84%",
+          width: "86%",
+
           margin: "0 auto",
         }}>
         <LeftBar />
+        {isNonMobileScreens ? "" : <SuggestedFriendsBar />}
         <Box>
           <ProfileCartWidget />
           <CreatePostWidget />
-          <PostsWidget />
+          <PostsWidget path={`userPosts/${user._id}`} />
         </Box>
-        <SuggestedFriendsBar />
+        {isNonMobileScreens ? <SuggestedFriendsBar /> : ""}
       </Box>
     </Box>
   );

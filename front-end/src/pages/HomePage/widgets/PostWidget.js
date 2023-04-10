@@ -32,7 +32,6 @@ const PostWidget = ({
 
   const isLiked = Boolean(likes[user._id]);
   const likeCount = Object.keys(likes).length;
-  console.log(isLiked);
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/${postId}/like`, {
       method: "PATCH",
@@ -42,7 +41,7 @@ const PostWidget = ({
       body: JSON.stringify({ userId: user._id }),
     });
     const updatedPost = await response.json();
-    console.log(updatedPost);
+
     dispatch(setPost({ post: updatedPost }));
   };
 
@@ -70,6 +69,7 @@ const PostWidget = ({
         justifyContent: "center",
         flexDirection: "column",
         backgroundColor: "#fff",
+        borderRadius: "14px",
       }}>
       <Grid
         container

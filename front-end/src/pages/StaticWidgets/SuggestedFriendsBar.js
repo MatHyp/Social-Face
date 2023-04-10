@@ -14,12 +14,19 @@ const SuggestedFriendsBar = () => {
           justifyContent: "center",
           flexDirection: "column",
           backgroundColor: "#fff",
+          borderRadius: "14px",
         }}>
+        <p
+          style={{
+            margin: "10px auto 10px 20px",
+          }}>
+          Recommended users.
+        </p>
         <Grid
           container
           direction="row"
           alignItems="center"
-          margin="20px auto 0px 20px">
+          margin="10px auto 10px 20px">
           <Avatar
             overlap="circular"
             src={logo}

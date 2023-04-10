@@ -20,15 +20,17 @@ const HomePage = () => {
           display: "flex",
           flexDirection: isNonMobileScreens ? "row" : "column",
           justifyContent: "space-between",
-          width: "84%",
+          width: "80%",
+
           margin: "0 auto",
         }}>
         <LeftBar />
+        {isNonMobileScreens ? "" : <SuggestedFriendsBar />}
         <Box>
           <CreatePostWidget />
-          <PostsWidget />
+          <PostsWidget path={`post`} />
         </Box>
-        <SuggestedFriendsBar />
+        {isNonMobileScreens ? <SuggestedFriendsBar /> : ""}
       </Box>
       <Box sx={{ height: "80px" }}></Box>
     </Box>

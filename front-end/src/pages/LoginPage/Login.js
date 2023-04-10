@@ -1,10 +1,18 @@
-import { Box, Typography, Button, Divider, TextField } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Divider,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 
 import { setPosts, setUser } from "../../state";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 const LoginPage = () => {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -34,18 +42,19 @@ const LoginPage = () => {
       <Typography
         fontSize="67px"
         color="#1877F2"
-        textAlign="center">
+        textAlign="center"
+        padding="30px 0 0 0">
         Social Face
       </Typography>
       <Typography
         fontSize="30px"
         color="#1c1e21"
         textAlign="center">
-        Create an account and enjoy your time
+        Create an account and enjoy time with us.
       </Typography>
       <Box
         sx={{
-          width: "511px",
+          width: isNonMobileScreens ? "500px" : "80vw",
           position: "absolute",
           top: "50%",
           left: "50%",

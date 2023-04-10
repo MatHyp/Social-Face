@@ -1,10 +1,18 @@
-import { Box, Typography, Button, Divider, TextField } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  Divider,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 
 import { setPosts, setUser } from "../../state";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 const RegisterPage = () => {
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -12,16 +20,19 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
 
   const register = async () => {
-    const registerInResponse = await fetch("http://localhost:3001/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        firstName: name,
-        lastName: lastName,
-        username: username,
-        password: password,
-      }),
-    });
+    const registerInResponse = await fetch(
+      "http://localhost:3001/auth/register",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: name,
+          lastName: lastName,
+          username: username,
+          password: password,
+        }),
+      }
+    );
     const register = await registerInResponse.json();
     console.log(register);
   };
@@ -31,18 +42,19 @@ const RegisterPage = () => {
       <Typography
         fontSize="67px"
         color="#1877F2"
-        textAlign="center">
+        textAlign="center"
+        padding="30px 0 0 0">
         Social Face
       </Typography>
       <Typography
         fontSize="30px"
         color="#1c1e21"
         textAlign="center">
-        Create an account and enjoy your time
+        Create an account and enjoy time with us.
       </Typography>
       <Box
         sx={{
-          width: "511px",
+          width: isNonMobileScreens ? "500px" : "80vw",
           position: "absolute",
           top: "50%",
           left: "50%",
@@ -68,7 +80,6 @@ const RegisterPage = () => {
           variant="outlined"
           label="First Name"
           sx={{ width: "80%", margin: "10px 0 10px 0px" }}
-          
           onChange={(e) => {
             setName(e.target.value);
           }}
@@ -78,7 +89,6 @@ const RegisterPage = () => {
           variant="outlined"
           label="Last Name"
           sx={{ width: "80%", margin: "10px 0 10px 0px" }}
-          
           onChange={(e) => {
             setLastName(e.target.value);
           }}
@@ -93,8 +103,8 @@ const RegisterPage = () => {
             setPassword(e.target.value);
           }}
         />
-          {/* <a href="/"> */}
-        
+        {/* <a href="/"> */}
+
         <Button
           onClick={register}
           variant="contained"
@@ -107,10 +117,10 @@ const RegisterPage = () => {
           }}>
           Register
         </Button>
-          {/* </a > */}
+        {/* </a > */}
 
         <Divider />
-          {/* <a href="/"> */}
+        {/* <a href="/"> */}
 
         <Button
           variant="contained"
@@ -120,11 +130,10 @@ const RegisterPage = () => {
             fontSize: "15px",
             margin: "10px 0 70px 0",
             textTransform: "lowercase",
-          }}
-          >
+          }}>
           Sign in
         </Button>
-            {/* </a> */}
+        {/* </a> */}
       </Box>
     </Box>
   );

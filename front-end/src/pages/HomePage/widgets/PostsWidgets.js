@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 
 import PostWidget from "./PostWidget";
 import { setPosts } from "../../../state";
-const PostsWidget = () => {
+const PostsWidget = ({ path }) => {
   const dispatch = useDispatch();
   // const [post, setPost] = useState([]);
   const posts = useSelector((state) => state.posts);
   const getPosts = async () => {
-    const response = await fetch("http://localhost:3001/post", {
+    const response = await fetch(`http://localhost:3001/${path}`, {
       method: "GET",
     });
 
     const data = await response.json();
-
+    console.log(data);
     dispatch(
       setPosts({
         posts: data,

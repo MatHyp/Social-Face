@@ -14,10 +14,20 @@ import { useSelector } from "react-redux";
 // import logo from "../../../img/profile-2.png";
 import logo2 from "../../img/friends.png";
 import home from "../../img/home.png";
+import { useState } from "react";
 const LeftBar = () => {
   const user = useSelector((state) => state.user);
   const link = `/profile/${user._id}`;
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+
+  const [isHoverFirst, setIsHoverFirst] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHoverFirst(true);
+  };
+  const handleMouseLeave = () => {
+    setIsHoverFirst(false);
+  };
 
   return (
     <div>
@@ -25,24 +35,32 @@ const LeftBar = () => {
         sx={{
           margin: "30px auto 0 auto",
           width: isNonMobileScreens ? "22vw" : "80vw",
+          borderRadius: "14px",
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "space-around",
           flexDirection: "column",
           backgroundColor: "#fff",
         }}>
-        <a href={link}>
+        <a
+          href={link}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            transition: "0.2s ease",
+            backgroundColor: isHoverFirst ? "grey" : "",
+          }}>
           <Grid
             container
             direction="row"
             alignItems="center"
-            margin="20px auto 0px 20px">
+            margin="10px auto 10px 20px">
             <Avatar
               overlap="circular"
               src={`http://localhost:3001/static/${user.picturePath}`}
               sx={{ width: 50, height: 50 }}
             />
             <Box>
-              <p style={{ marginLeft: "14px" }}>
+              <p style={{ marginLeft: "14px", color: "black" }}>
                 {user.firstName} {user.lastName}
               </p>
             </Box>
@@ -54,13 +72,13 @@ const LeftBar = () => {
             container
             direction="row"
             alignItems="center"
-            margin="20px auto 0px 20px">
+            margin="10px auto 10px 20px">
             <Avatar
               src={home}
               sx={{ width: 50, height: 50 }}
             />
             <Box>
-              <p style={{ marginLeft: "14px" }}>Home</p>
+              <p style={{ marginLeft: "14px", color: "black" }}>Home</p>
             </Box>
           </Grid>
         </a>
@@ -69,14 +87,14 @@ const LeftBar = () => {
           container
           direction="row"
           alignItems="center"
-          margin="20px auto 20px 20px">
+          margin="10px auto 10px 20px">
           <Avatar
             overlap="circular"
             src={logo2}
             sx={{ width: 50, height: 50 }}
           />
           <Box>
-            <p style={{ marginLeft: "14px" }}>Your friends</p>
+            <p style={{ marginLeft: "14px", color: "black" }}>Your friends</p>
           </Box>
         </Grid>
       </Box>

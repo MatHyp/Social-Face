@@ -59,6 +59,7 @@ const MyPostWidget = () => {
           margin: "30px auto 0 auto",
           width: isNonMobileScreens ? "30vw" : "80vw",
           display: "flex",
+          borderRadius: "14px",
           justifyContent: "center",
           flexDirection: "column",
           backgroundColor: "#fff",
