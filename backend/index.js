@@ -12,9 +12,14 @@ import { register } from "./controllers/auth.js";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import { verifyToken } from "./middleware/auth.js";
-import { addComment, createPost } from "./controllers/posts.js";
+import {
+  addComment,
+  createPost,
+  getFeedUserPosts,
+} from "./controllers/posts.js";
 import { getFeedPosts } from "./controllers/posts.js";
 import { likePost } from "./controllers/posts.js";
+import { log } from "console";
 
 // CONFIGURATIONS
 
@@ -38,7 +43,9 @@ app.use("/static", express.static(path.join(__dirname, "public/assets")));
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "public/assets");
+    console.log(file);
+
+    cb(null, "./public/assets");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname);
@@ -54,6 +61,7 @@ app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 
 app.get("/post", getFeedPosts);
+app.get("/userPosts/:id", getFeedUserPosts);
 
 app.post("/post", upload.single("picture"), createPost);
 
