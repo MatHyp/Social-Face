@@ -3,12 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from "react";
 import { setPosts } from "../../../state";
 import { useDropzone } from "react-dropzone";
-import { Avatar, TextField, Grid, Divider, Button, Box } from "@mui/material";
+import {
+  Avatar,
+  TextField,
+  Grid,
+  Divider,
+  Button,
+  Box,
+  useMediaQuery,
+} from "@mui/material";
 
 import postImage from "../../../img/post-image.png";
 
 const MyPostWidget = () => {
   const dispatch = useDispatch();
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const savedPosts = useSelector((state) => state.posts);
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone();
 
@@ -19,8 +28,14 @@ const MyPostWidget = () => {
     const formData = new FormData();
 
     formData.append("id", user._id);
-    formData.append("picture", acceptedFiles.length === 0 ? "" : acceptedFiles[0]);
-    formData.append("picturePath", acceptedFiles.length === 0 ? "" : acceptedFiles[0].path);
+    formData.append(
+      "picture",
+      acceptedFiles.length === 0 ? "" : acceptedFiles[0]
+    );
+    formData.append(
+      "picturePath",
+      acceptedFiles.length === 0 ? "" : acceptedFiles[0].path
+    );
     formData.append("description", description);
 
     const response = await fetch("http://localhost:3001/post", {
@@ -42,7 +57,7 @@ const MyPostWidget = () => {
       <Box
         sx={{
           margin: "30px auto 0 auto",
-          width: "600px",
+          width: isNonMobileScreens ? "30vw" : "80vw",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",

@@ -1,15 +1,15 @@
-import { Avatar, Grid, Box } from "@mui/material";
+import { Avatar, Grid, Box, useMediaQuery } from "@mui/material";
 
 import logo from "../../img/profile-2.png";
 
 const SuggestedFriendsBar = () => {
-  
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   return (
     <div>
       <Box
         sx={{
           margin: "30px auto 0 auto",
-          width: "440px",
+          width: isNonMobileScreens ? "22vw" : "80vw",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",

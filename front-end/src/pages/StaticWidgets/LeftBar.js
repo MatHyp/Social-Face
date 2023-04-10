@@ -6,7 +6,7 @@ import {
   Button,
   Box,
   Paper,
-  
+  useMediaQuery,
 } from "@mui/material";
 
 import { useSelector } from "react-redux";
@@ -17,56 +17,54 @@ import home from "../../img/home.png";
 const LeftBar = () => {
   const user = useSelector((state) => state.user);
   const link = `/profile/${user._id}`;
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   return (
     <div>
       <Box
         sx={{
           margin: "30px auto 0 auto",
-          width: "440px",
+          width: isNonMobileScreens ? "22vw" : "80vw",
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
           backgroundColor: "#fff",
         }}>
-            <a href={link}>
+        <a href={link}>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            margin="20px auto 0px 20px">
+            <Avatar
+              overlap="circular"
+              src={`http://localhost:3001/static/${user.picturePath}`}
+              sx={{ width: 50, height: 50 }}
+            />
+            <Box>
+              <p style={{ marginLeft: "14px" }}>
+                {user.firstName} {user.lastName}
+              </p>
+            </Box>
+          </Grid>
+        </a>
 
+        <a href="/">
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            margin="20px auto 0px 20px">
+            <Avatar
+              src={home}
+              sx={{ width: 50, height: 50 }}
+            />
+            <Box>
+              <p style={{ marginLeft: "14px" }}>Home</p>
+            </Box>
+          </Grid>
+        </a>
 
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          margin="20px auto 0px 20px">
-          <Avatar
-            overlap="circular"
-            src={`http://localhost:3001/static/${user.picturePath}`}
-            sx={{ width: 50, height: 50 }}
-          />
-          <Box>
-            <p style={{ marginLeft: "14px" }}>
-              {user.firstName} {user.lastName}
-            </p>
-          </Box>
-        </Grid>
-            </a>
-      
-  <a href="/">
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          margin="20px auto 0px 20px">
-          <Avatar
-            src={home}
-            sx={{ width: 50, height: 50 }}
-          />
-          <Box>
-            <p style={{ marginLeft: "14px" }}>Home</p>
-          </Box>
-        </Grid>
-  </a>
-        
-        
         <Grid
           container
           direction="row"

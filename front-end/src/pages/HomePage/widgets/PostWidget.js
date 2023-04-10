@@ -9,7 +9,7 @@ import like_2 from "../../../img/like_re.png";
 import comment from "../../../img/comment.png";
 import styled from "styled-components";
 import { fontSize } from "@mui/system";
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, useMediaQuery } from "@mui/material";
 import { useState, useEffect } from "react";
 
 const PostWidget = ({
@@ -24,7 +24,7 @@ const PostWidget = ({
   userPicturePath,
 }) => {
   const user = useSelector((state) => state.user);
-
+  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
 
   const [newComment, setNewComment] = useState("");
@@ -65,7 +65,7 @@ const PostWidget = ({
     <Box
       sx={{
         margin: "30px auto 0 auto",
-        width: "600px",
+        width: isNonMobileScreens ? "30vw" : "80vw",
         display: "flex",
         justifyContent: "center",
         flexDirection: "column",
