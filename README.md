@@ -1,6 +1,6 @@
 # Social-Face
 
-FullStack Responsive MERN Social App. With basic authentication system, creating accounts and posts with images including likes,commants and functions to search , follow and disfollow another user. 
+FullStack Responsive MERN Social App. With basic authentication system, creating accounts and posts with images including likes,commants and functions to search , follow and disfollow another user. Project is still in progress.
 
 Technologies used in the project:
 
