@@ -5,4 +5,5 @@ FullStack Responsive MERN Social App. With basic authentication system, creating
 Technologies used in the project:
 
 Frontend: React, Redux, React-Router , React-dropzone and Material Ui
+
 Backend API: Node.js, Express and Mongo Database.
