@@ -94,7 +94,7 @@ const LeftBar = () => {
             sx={{ width: 50, height: 50 }}
           />
           <Box>
-            <p style={{ marginLeft: "14px", color: "black" }}>Your friends</p>
+            <p style={{ marginLeft: "14px", color: "black" }}>Your Follows</p>
           </Box>
         </Grid>
       </Box>

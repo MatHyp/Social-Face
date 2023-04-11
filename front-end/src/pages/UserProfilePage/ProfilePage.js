@@ -7,10 +7,26 @@ import SuggestedFriendsBar from "../StaticWidgets/SuggestedFriendsBar.js";
 import ProfileCartWidget from "./widgets/ProfileCartWidget.js";
 import CreatePostWidget from "../HomePage/widgets/CreatePostWidget.js";
 import PostsWidget from "../HomePage/widgets/PostsWidgets.js";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const ProfilePage = () => {
-  const user = useSelector((state) => state.user);
+  const [user, setUsers] = useState({});
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
+  const params = useParams();
+
+  console.log(params.id);
+  const getUsers = async () => {
+    const response = await fetch(`http://localhost:3001/users/${params.id}`, {
+      method: "GET",
+    });
+    const data = await response.json();
+    setUsers(data);
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <Box>
@@ -21,15 +37,18 @@ const ProfilePage = () => {
           flexDirection: isNonMobileScreens ? "row" : "column",
           justifyContent: "space-between",
           width: "86%",
-
           margin: "0 auto",
         }}>
         <LeftBar />
         {isNonMobileScreens ? "" : <SuggestedFriendsBar />}
         <Box>
-          <ProfileCartWidget />
+          <ProfileCartWidget
+            firstName={user.firstName}
+            lastName={user.lastName}
+            picturePath={user.picturePath}
+          />
           <CreatePostWidget />
-          <PostsWidget path={`userPosts/${user._id}`} />
+          <PostsWidget path={`userPosts/${user.id}`} />
         </Box>
         {isNonMobileScreens ? <SuggestedFriendsBar /> : ""}
       </Box>
