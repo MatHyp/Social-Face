@@ -39,11 +39,10 @@ export const getFeedPosts = async (req, res) => {
 export const getFeedUserPosts = async (req, res) => {
   try {
     const { id } = req.params;
-    
-    const post = await Post.find();
-  
 
-    res.status(200).json(post.filter(post => post.id === id));
+    const post = await Post.find();
+
+    res.status(200).json(post.filter((post) => post.id === id));
   } catch (err) {
     res.status(404).json({ message: err.message });
   }
@@ -91,7 +90,6 @@ export const addComment = async (req, res) => {
       comment: comment,
     };
 
-    console.log(post.comments);
     post.comments.push(commentObj);
     await post.save();
 

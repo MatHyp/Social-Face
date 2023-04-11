@@ -75,6 +75,17 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "default.png",
     },
+
+    userFollows: {
+      type: Map,
+      of: Boolean,
+      default: {},
+    },
+    userFollowers: {
+      type: Map,
+      of: Boolean,
+      default: {},
+    },
   },
   { timestamps: true }
 );
