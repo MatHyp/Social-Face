@@ -7,7 +7,7 @@ import like from "../../../img/like.png";
 import like_2 from "../../../img/like_re.png";
 import comment from "../../../img/comment.png";
 import { IconButton, useMediaQuery } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PostWidget = ({
   postId,
@@ -27,8 +27,9 @@ const PostWidget = ({
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
 
-  const isLiked = Boolean(likes[user._id]);
-  const likeCount = Object.keys(likes).length;
+  const [isLiked, setIsLiked] = useState();
+  const [likeCount, setLikeCount] = useState();
+
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/${postId}/like`, {
       method: "PATCH",
@@ -40,7 +41,20 @@ const PostWidget = ({
     const updatedPost = await response.json();
 
     dispatch(setPost({ post: updatedPost }));
+
+    if (isLiked != true) {
+      setIsLiked(true);
+      setLikeCount(likeCount + 1);
+    } else {
+      setIsLiked(false);
+      setLikeCount(likeCount - 1);
+    }
   };
+
+  useEffect(() => {
+    setIsLiked(likes[user._id]);
+    setLikeCount(Object.keys(likes).length);
+  }, []);
 
   const addComment = async () => {
     const response = await fetch(`http://localhost:3001/${postId}/comment`, {
