@@ -39,6 +39,9 @@ const LoginPage = () => {
 
   return (
     <Box>
+      Hello, you can use that account to test an app or create your own.
+      <br></br>
+      username: mateusz, password: test
       <Typography
         fontSize="67px"
         color="#1877F2"
@@ -50,7 +53,7 @@ const LoginPage = () => {
         fontSize="30px"
         color="#1c1e21"
         textAlign="center">
-        Create an account and enjoy time with us.
+        Login and enjoy time with us.
       </Typography>
       <Box
         sx={{

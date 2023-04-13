@@ -4,12 +4,15 @@ import {
   Button,
   Divider,
   TextField,
+  Grid,
   useMediaQuery,
 } from "@mui/material";
-
+import Dropzone from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 import { setPosts, setUser } from "../../state";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import postImage from "../../img/post-image.png";
 
 const RegisterPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -18,19 +21,30 @@ const RegisterPage = () => {
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { getRootProps, getInputProps, acceptedFiles } = useDropzone();
 
   const register = async () => {
+    const formData = new FormData();
+    console.log(acceptedFiles);
+
+    formData.append("firstName", name);
+    formData.append("lastName", lastName);
+    formData.append("username", username);
+    formData.append("password", password);
+    formData.append(
+      "picture",
+      acceptedFiles.length === 0 ? "" : acceptedFiles[0]
+    );
+    formData.append(
+      "picturePath",
+      acceptedFiles.length === 0 ? "" : acceptedFiles[0].path
+    );
     const registerInResponse = await fetch(
       "http://localhost:3001/auth/register",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstName: name,
-          lastName: lastName,
-          username: username,
-          password: password,
-        }),
+
+        body: formData,
       }
     );
     const register = await registerInResponse.json();
@@ -103,37 +117,66 @@ const RegisterPage = () => {
             setPassword(e.target.value);
           }}
         />
-        {/* <a href="/"> */}
-
-        <Button
-          onClick={register}
-          variant="contained"
-          sx={{
-            width: "50%",
-            bgcolor: "#1877F2",
-            fontSize: "18px",
-            margin: "10px 0",
-            textTransform: "lowercase",
-          }}>
-          Register
-        </Button>
-        {/* </a > */}
+        <div style={{ width: "50%" }}>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+            width="92%"
+            margin="20px auto 10px auto">
+            Attach your avatar
+            <div {...getRootProps()}>
+              <input
+                {...getInputProps()}
+                name="picture"
+              />
+              <img
+                src={postImage}
+                alt=""
+              />
+            </div>
+            <div>
+              {acceptedFiles.map((file) => (
+                <p>{file.path} - attatched</p>
+              ))}
+            </div>
+          </Grid>
+        </div>
+        <div style={{ width: "100%", transform: "translateX(25%)" }}>
+          <a href="/">
+            <Button
+              onClick={register}
+              variant="contained"
+              sx={{
+                width: "50%",
+                bgcolor: "#1877F2",
+                fontSize: "18px",
+                margin: "10px 0",
+                textTransform: "lowercase",
+              }}>
+              Register
+            </Button>
+          </a>
+        </div>
 
         <Divider />
-        {/* <a href="/"> */}
 
-        <Button
-          variant="contained"
-          sx={{
-            width: "50%",
-            bgcolor: "#42B72A",
-            fontSize: "15px",
-            margin: "10px 0 70px 0",
-            textTransform: "lowercase",
-          }}>
-          Sign in
-        </Button>
-        {/* </a> */}
+        <div style={{ width: "100%", transform: "translateX(25%)" }}>
+          <a href="/">
+            <Button
+              variant="contained"
+              sx={{
+                width: "50%",
+                bgcolor: "#42B72A",
+                fontSize: "15px",
+                margin: "10px 0 70px 0",
+                textTransform: "lowercase",
+              }}>
+              Sign in
+            </Button>
+          </a>
+        </div>
       </Box>
     </Box>
   );

@@ -48,7 +48,7 @@ const ProfilePage = () => {
             picturePath={user.picturePath}
           />
           <CreatePostWidget />
-          <PostsWidget path={`userPosts/${user.id}`} />
+          <PostsWidget path={`userPosts/${params.id}`} />
         </Box>
         {isNonMobileScreens ? <SuggestedFriendsBar /> : ""}
       </Box>

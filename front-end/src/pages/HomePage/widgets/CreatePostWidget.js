@@ -26,7 +26,7 @@ const MyPostWidget = () => {
 
   const sendPost = async () => {
     const formData = new FormData();
-
+    console.log(acceptedFiles);
     formData.append("id", user._id);
     formData.append(
       "picture",
@@ -58,6 +58,7 @@ const MyPostWidget = () => {
         sx={{
           margin: "30px auto 0 auto",
           width: isNonMobileScreens ? "30vw" : "80vw",
+          height: "210px",
           display: "flex",
           borderRadius: "14px",
           justifyContent: "center",

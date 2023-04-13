@@ -45,6 +45,7 @@ const SuggestedFriendsBar = () => {
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
+          height: "210px",
           backgroundColor: "#fff",
           borderRadius: "14px",
         }}>

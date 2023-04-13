@@ -2,15 +2,12 @@ import { Avatar, TextField, Grid, Divider, Button, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setPost } from "../../../state";
 
-import logo from "../../../img/profile-2.png";
 import send from "../../../img/send.png";
 import like from "../../../img/like.png";
 import like_2 from "../../../img/like_re.png";
 import comment from "../../../img/comment.png";
-import styled from "styled-components";
-import { fontSize } from "@mui/system";
 import { IconButton, useMediaQuery } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const PostWidget = ({
   postId,
