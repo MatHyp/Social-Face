@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import logo from "../../img/profile-2.png";
 import like from "../../img/like.png";
 
+import SuggestedFriendWidget from "./Widgets/SuggestedFriendWidget";
+
 const SuggestedFriendsBar = () => {
   const user = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-
   const getUsers = async () => {
     const response = await fetch(`http://localhost:3001/users`, {
       method: "GET",
@@ -21,20 +22,6 @@ const SuggestedFriendsBar = () => {
   useEffect(() => {
     getUsers();
   }, []);
-
-  const addFollow = async () => {
-    const response = await fetch(`http://localhost:3001/users/follow`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: user._id,
-        userToFollowId: "6435469754998f6838828837",
-      }),
-    });
-    const updatedPost = await response.json();
-  };
 
   return (
     <div>
@@ -55,10 +42,53 @@ const SuggestedFriendsBar = () => {
           }}>
           Recommended users.
         </p>
-        {users.map((user) => (
-          <a
-            href={`/profile/${user._id}`}
-            style={{ textDecoration: "none", color: "black" }}>
+
+        {users
+          // .slice(0)
+          // .reverse()
+          .map(
+            ({
+              _id,
+              id,
+              firstName,
+              lastName,
+              picturePath,
+              description,
+              likes,
+              createdAt,
+              comments,
+              userPicturePath,
+              userFollowers,
+            }) => {
+              return (
+                <SuggestedFriendWidget
+                  key={_id}
+                  id={_id}
+                  firstName={firstName}
+                  lastName={lastName}
+                  picturePath={picturePath}
+                  description={description}
+                  likes={likes}
+                  createdAt={createdAt}
+                  comments={comments}
+                  userPicturePath={userPicturePath}
+                  userFollowers={userFollowers}
+                />
+              );
+            }
+          )}
+
+        {/* {users.map(function (suggestedUser) {
+          // suggestedUser.userFollowers[user._id] !== undefined
+          // ? setCount(1)
+          // : setCount(0);
+
+          let count = 0;
+          if (suggestedUser.userFollowers[user._id] !== undefined) {
+            count = 1;
+            console.log(count);
+          }
+          return (
             <Grid
               container
               direction="row"
@@ -72,33 +102,93 @@ const SuggestedFriendsBar = () => {
                 }}>
                 <Avatar
                   overlap="circular"
-                  src={`http://localhost:3001/static/${user.picturePath}`}
+                  src={`http://localhost:3001/static/${suggestedUser.picturePath}`}
                   sx={{ width: 50, height: 50 }}
                 />
                 <Box>
                   <p style={{ marginLeft: "14px" }}>
-                    {`${user.firstName} ${user.lastName}`}
+                    {`${suggestedUser.firstName} ${suggestedUser.lastName}`}
                     {user.id}
                   </p>
                 </Box>
               </Box>
               <IconButton
-                onClick={addFollow}
+                onClick={() => {
+                  addFollow(suggestedUser._id);
+                  count !== 1 ? count++ : count--;
+                  setS;
+                }}
                 sx={{
                   borderRadius: "10px",
                   color: "black",
                   fontSize: "16px",
                   ":hover": { backgroundColor: "#BAC0C6" },
                 }}>
-                <img
-                  src={like}
-                  alt="like"
-                  style={{ width: "30px" }}
-                />
+                <p
+                  style={{
+                    color:
+                      suggestedUser.userFollowers[user._id] !== undefined ||
+                      count == 1
+                        ? "blue"
+                        : "",
+                  }}>
+                  follow
+                  {console.log(suggestedUser.userFollowers[user._id])}
+                </p>
               </IconButton>
             </Grid>
-          </a>
-        ))}
+          );
+        })} */}
+        {/* {users.map((suggestedUser) => {return(
+          // <a
+          //   href={`/profile/${user._id}`}
+          //   style={{ textDecoration: "none", color: "black" }}>
+          {(suggestedUser.userFollowers[user._id] !== undefined) ? setCount(1) : setCount(0)}
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justifyContent="space-around"
+            margin="10px auto 10px 00px">
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+              }}>
+              <Avatar
+                overlap="circular"
+                src={`http://localhost:3001/static/${suggestedUser.picturePath}`}
+                sx={{ width: 50, height: 50 }}
+              />
+              <Box>
+                <p style={{ marginLeft: "14px" }}>
+                  {`${suggestedUser.firstName} ${suggestedUser.lastName}`}
+                  {user.id}
+                </p>
+              </Box>
+            </Box>
+            <IconButton
+              onClick={() => addFollow(suggestedUser._id)}
+              sx={{
+                borderRadius: "10px",
+                color: "black",
+                fontSize: "16px",
+                ":hover": { backgroundColor: "#BAC0C6" },
+              }}>
+              <p
+                style={{
+                  color:
+                    suggestedUser.userFollowers[user._id] !== undefined
+                      ? "blue"
+                      : "",
+                }}>
+                follow
+                {console.log(suggestedUser.userFollowers[user._id])}
+              </p>
+            </IconButton>
+          </Grid>
+          // </a> */}
+        {/* ))} */}
       </Box>
     </div>
   );

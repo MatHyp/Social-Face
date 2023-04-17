@@ -8,6 +8,8 @@ import LoginPage from "./pages/LoginPage/Login";
 import RegisterPage from "./pages/RegisterPage/Register";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/UserProfilePage/ProfilePage";
+import YourFollowsPage from "./pages/YourFollowsPage/YourFollowsPage";
+
 function App() {
   const Main = styled.div`
     @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600;700&display=swap");
@@ -36,6 +38,10 @@ function App() {
           <Route
             path="/profile/:id"
             element={isAuth ? <ProfilePage /> : <LoginPage />}
+          />
+          <Route
+            path="/follows"
+            element={isAuth ? <YourFollowsPage /> : <LoginPage />}
           />
         </Routes>
       </BrowserRouter>

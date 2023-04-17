@@ -37,14 +37,16 @@ export const followUser = async (req, res) => {
       userToFollow.userFollowers.set(userId, true);
     }
 
-    const updatedPost = await User.findByIdAndUpdate(userWhoFollow, {
+    const updateUserWhoFollow = await User.findByIdAndUpdate(userWhoFollow, {
       userFollows: userWhoFollow.userFollows,
+      // userFollows: {},
     });
-    const test = await User.findByIdAndUpdate(userToFollow, {
+    const updateUserToFollow = await User.findByIdAndUpdate(userToFollow, {
       userFollowers: userToFollow.userFollowers,
+      // userFollowers: {},
     });
-    console.log(updatedPost);
-    res.status(200).json(updatedPost);
+
+    res.status(200).json(updateUserWhoFollow);
   } catch (err) {
     res.status(404).json({ message: err.message });
   }

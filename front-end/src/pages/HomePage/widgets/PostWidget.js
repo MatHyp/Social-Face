@@ -26,9 +26,7 @@ const PostWidget = ({
 
   const [newComment, setNewComment] = useState("");
   const [showComments, setShowComments] = useState(false);
-
-  const [isLiked, setIsLiked] = useState();
-  const [likeCount, setLikeCount] = useState();
+  const [likee, setLike] = useState(likes[user._id] !== undefined);
 
   const patchLike = async () => {
     const response = await fetch(`http://localhost:3001/${postId}/like`, {
@@ -41,20 +39,7 @@ const PostWidget = ({
     const updatedPost = await response.json();
 
     dispatch(setPost({ post: updatedPost }));
-
-    if (isLiked != true) {
-      setIsLiked(true);
-      setLikeCount(likeCount + 1);
-    } else {
-      setIsLiked(false);
-      setLikeCount(likeCount - 1);
-    }
   };
-
-  useEffect(() => {
-    setIsLiked(likes[user._id]);
-    setLikeCount(Object.keys(likes).length);
-  }, []);
 
   const addComment = async () => {
     const response = await fetch(`http://localhost:3001/${postId}/comment`, {
@@ -119,7 +104,7 @@ const PostWidget = ({
             alt="like"
             style={{ width: "22px", height: "22px" }}
           />
-          <p>{likeCount}</p>
+          <p>{Object.keys(likes).length}</p>
         </div>
 
         <p onClick={() => setShowComments(!showComments)}>
@@ -130,7 +115,10 @@ const PostWidget = ({
         container
         direction="row">
         <IconButton
-          onClick={patchLike}
+          onClick={() => {
+            patchLike();
+            likee ? setLike(false) : setLike(true);
+          }}
           sx={{
             borderRadius: "0px",
             width: "50%",
@@ -145,7 +133,7 @@ const PostWidget = ({
           <p
             style={{
               marginLeft: "20px",
-              color: isLiked ? "blue" : "black",
+              color: likee ? "blue" : "black",
             }}>
             Like this!
           </p>
