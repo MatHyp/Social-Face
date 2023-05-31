@@ -13,7 +13,7 @@ import { setPosts, setUser } from "../../state";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import postImage from "../../img/post-image.png";
-
+import { baseUrl } from '../../config.js';
 const RegisterPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const RegisterPage = () => {
       acceptedFiles.length === 0 ? "" : acceptedFiles[0].path
     );
     const registerInResponse = await fetch(
-      "http://localhost:3001/auth/register",
+      `${baseUrl}/auth/register`,
       {
         method: "POST",
 

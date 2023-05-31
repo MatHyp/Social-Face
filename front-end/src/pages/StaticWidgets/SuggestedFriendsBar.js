@@ -5,13 +5,14 @@ import logo from "../../img/profile-2.png";
 import like from "../../img/like.png";
 
 import SuggestedFriendWidget from "./Widgets/SuggestedFriendWidget";
+import { baseUrl } from '../../config.js';
 
 const SuggestedFriendsBar = () => {
   const user = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const getUsers = async () => {
-    const response = await fetch(`http://localhost:3001/users`, {
+    const response = await fetch(`${baseUrl}/users`, {
       method: "GET",
     });
     const data = await response.json();

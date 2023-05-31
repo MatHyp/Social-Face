@@ -12,7 +12,7 @@ import {
   Box,
   useMediaQuery,
 } from "@mui/material";
-
+import { baseUrl } from '../../../config.js';
 import postImage from "../../../img/post-image.png";
 
 const MyPostWidget = () => {
@@ -38,7 +38,7 @@ const MyPostWidget = () => {
     );
     formData.append("description", description);
 
-    const response = await fetch("http://localhost:3001/post", {
+    const response = await fetch(`${baseUrl}/post`, {
       method: "POST",
       body: formData,
     });
@@ -73,7 +73,7 @@ const MyPostWidget = () => {
           margin="20px auto 20px auto">
           <Avatar
             overlap="circular"
-            src={`http://localhost:3001/static/${user.picturePath}`}
+            src={`${baseUrl}/${user.picturePath}`}
             sx={{ width: 50, height: 50 }}
           />
 

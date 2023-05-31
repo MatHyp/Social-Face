@@ -1,6 +1,7 @@
 import { Avatar, Grid, Box, IconButton } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { baseUrl } from '../../../config.js';
 
 const SuggestedFriendWidget = ({
   id,
@@ -14,7 +15,7 @@ const SuggestedFriendWidget = ({
   const [follow, setFollow] = useState(userFollowers[user._id] !== undefined);
 
   const addFollow = async () => {
-    const response = await fetch(`http://localhost:3001/users/follow`, {
+    const response = await fetch(`${baseUrl}/users/follow`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +43,7 @@ const SuggestedFriendWidget = ({
         }}>
         <Avatar
           overlap="circular"
-          src={`http://localhost:3001/static/${picturePath}`}
+          src={`${baseUrl}/static/${picturePath}`}
           sx={{ width: 50, height: 50 }}
         />
         <Box>

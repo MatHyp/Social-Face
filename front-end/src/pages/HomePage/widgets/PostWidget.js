@@ -8,6 +8,7 @@ import like_2 from "../../../img/like_re.png";
 import comment from "../../../img/comment.png";
 import { IconButton, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
+import { baseUrl } from '../../../config.js';
 
 const PostWidget = ({
   postId,
@@ -29,7 +30,7 @@ const PostWidget = ({
   const [likee, setLike] = useState(likes[user._id] !== undefined);
 
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/${postId}/like`, {
+    const response = await fetch(`${baseUrl}/${postId}/like`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +43,7 @@ const PostWidget = ({
   };
 
   const addComment = async () => {
-    const response = await fetch(`http://localhost:3001/${postId}/comment`, {
+    const response = await fetch(`${baseUrl}/${postId}/comment`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +75,7 @@ const PostWidget = ({
         margin="20px auto 20px 20px">
         <Avatar
           overlap="circular"
-          src={`http://localhost:3001/static/${userPicturePath}`}
+          src={`${baseUrl}/static/${userPicturePath}`}
           sx={{ width: 50, height: 50 }}
         />
         <Box>
@@ -88,7 +89,7 @@ const PostWidget = ({
       </Grid>
       <p style={{ marginLeft: "20px" }}>{description}</p>
       <img
-        src={`http://localhost:3001/static/${picturePath}`}
+        src={`${baseUrl}/static/${picturePath}`}
         alt=""
         style={{ maxHeight: "600px", width: "auto", objectFit: "contain" }}
       />
@@ -163,7 +164,7 @@ const PostWidget = ({
         margin="20px auto 20px auto">
         <Avatar
           overlap="circular"
-          src={`http://localhost:3001/static/${userPicturePath}`}
+          src={`${baseUrl}/static/${userPicturePath}`}
           sx={{ width: 40, height: 40 }}
         />
 

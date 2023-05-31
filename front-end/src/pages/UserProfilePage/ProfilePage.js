@@ -9,6 +9,7 @@ import CreatePostWidget from "../HomePage/widgets/CreatePostWidget.js";
 import PostsWidget from "../HomePage/widgets/PostsWidgets.js";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { baseUrl } from '../../config.js';
 
 const ProfilePage = () => {
   const [user, setUsers] = useState({});
@@ -16,8 +17,10 @@ const ProfilePage = () => {
   const params = useParams();
 
   console.log(params.id);
+
+
   const getUsers = async () => {
-    const response = await fetch(`http://localhost:3001/users/${params.id}`, {
+    const response = await fetch(`${baseUrl}/users/${params.id}`, {
       method: "GET",
     });
     const data = await response.json();

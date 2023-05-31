@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 import { useSelector } from "react-redux";
-
+import { baseUrl } from '../../config.js';
 // import logo from "../../../img/profile-2.png";
 import logo2 from "../../img/friends.png";
 import home from "../../img/home.png";
@@ -56,7 +56,7 @@ const LeftBar = () => {
             margin="10px auto 10px 20px">
             <Avatar
               overlap="circular"
-              src={`http://localhost:3001/static/${user.picturePath}`}
+              src={`${baseUrl}/static/${user.picturePath}`}
               sx={{ width: 50, height: 50 }}
             />
             <Box>

@@ -6,7 +6,7 @@ import {
   TextField,
   useMediaQuery,
 } from "@mui/material";
-
+import { baseUrl } from '../../config.js';
 import { setPosts, setUser } from "../../state";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
@@ -17,8 +17,10 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+
+  console.log(baseUrl);
   const login = async () => {
-    const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
+    const loggedInResponse = await fetch(`${baseUrl}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

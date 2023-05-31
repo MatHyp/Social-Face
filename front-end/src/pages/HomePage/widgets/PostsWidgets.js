@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-
+import { baseUrl } from '../../../config.js';
 import PostWidget from "./PostWidget";
 import { setPosts } from "../../../state";
 const PostsWidget = ({ path }) => {
@@ -8,7 +8,7 @@ const PostsWidget = ({ path }) => {
   // const [post, setPost] = useState([]);
   const posts = useSelector((state) => state.posts);
   const getPosts = async () => {
-    const response = await fetch(`http://localhost:3001/${path}`, {
+    const response = await fetch(`${baseUrl}/${path}`, {
       method: "GET",
     });
 

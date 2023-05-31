@@ -3,6 +3,7 @@ import { Box, CardMedia, useMediaQuery, Avatar } from "@mui/material";
 
 import bgc from "../../../img/szop.png";
 import logo from "../../../img/szop.png";
+import { baseUrl } from '../../../config.js';
 
 const ProfileCartWidget = ({ firstName, lastName, picturePath }) => {
   const user = useSelector((state) => state.user);
@@ -49,7 +50,7 @@ const ProfileCartWidget = ({ firstName, lastName, picturePath }) => {
           }}>
           <Avatar
             overlap="circular"
-            src={`http://localhost:3001/static/${picturePath}`}
+            src={`${baseUrl}/static/${picturePath}`}
             sx={{ width: 200, height: 200 }}
           />
           <h1>
