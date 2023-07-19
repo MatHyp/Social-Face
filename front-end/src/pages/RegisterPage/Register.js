@@ -144,7 +144,7 @@ const RegisterPage = () => {
           </Grid>
         </div>
         <div style={{ width: "100%", transform: "translateX(25%)" }}>
-          <a href="/">
+          
             <Button
               onClick={register}
               variant="contained"
@@ -157,13 +157,13 @@ const RegisterPage = () => {
               }}>
               Register
             </Button>
-          </a>
+          
         </div>
 
         <Divider />
 
         <div style={{ width: "100%", transform: "translateX(25%)" }}>
-          
+           <a href="/">
             <Button
               variant="contained"
               sx={{
@@ -175,7 +175,7 @@ const RegisterPage = () => {
               }}>
               Sign in
             </Button>
-         
+         </a>
         </div>
       </Box>
     </Box>
