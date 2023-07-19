@@ -163,7 +163,7 @@ const RegisterPage = () => {
         <Divider />
 
         <div style={{ width: "100%", transform: "translateX(25%)" }}>
-          <a href="/">
+          
             <Button
               variant="contained"
               sx={{
@@ -175,7 +175,7 @@ const RegisterPage = () => {
               }}>
               Sign in
             </Button>
-          </a>
+         
         </div>
       </Box>
     </Box>
