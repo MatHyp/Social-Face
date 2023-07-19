@@ -1,3 +1,3 @@
-const baseUrl = 'http://130.61.222.202'
+const baseUrl = 'https://mateusz-dev-three.ttc.ovh'
 
 export { baseUrl };
